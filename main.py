@@ -7,6 +7,8 @@ writes UTF-8 text.
 
 import os
 
+ENTRY_MAX_CHARS = 280
+
 TEXT = (
     "Somewhere past the last verdict, rain is still falling on a tin roof "
     "in a town you will never visit, and it is in no hurry at all. "
@@ -16,8 +18,11 @@ TEXT = (
 
 
 def main() -> None:
-    if not 1 <= len(TEXT.strip()) <= 280:
-        raise ValueError("text must be 1 to 280 characters, got %d" % len(TEXT.strip()))
+    if not 1 <= len(TEXT.strip()) <= ENTRY_MAX_CHARS:
+        raise ValueError(
+            "text must be 1 to %d characters, got %d"
+            % (ENTRY_MAX_CHARS, len(TEXT.strip()))
+        )
     os.makedirs("/output", exist_ok=True)
     try:
         os.chmod("/output", 0o755)
